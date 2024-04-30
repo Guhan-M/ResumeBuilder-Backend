@@ -1,30 +1,44 @@
-import express from 'express'
-import dotenv from 'dotenv'
-import cors from 'cors'
-import Approutes from './src/routes/index.js'
-import { fileURLToPath } from 'url'; // Import the fileURLToPath function
-import path  from 'path'
-dotenv.config()
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import { fileURLToPath } from 'url';
+import path from 'path';
+import Approutes from './src/routes/index.js';
 
-const __filename = fileURLToPath(import.meta.url); // Get the filename of the current module
-const __dirname = path.dirname(__filename); // Get the directory name of the current module
+dotenv.config();
 
-const app = express()
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-app.use(cors())
-app.use(express.json())
-app.use(Approutes)
+const app = express();
 
+app.use(cors());
+app.use(express.json());
+app.use(Approutes);
+
+// Endpoint to serve static images
 app.get('/images/:filename', async (req, res) => {
     try {
         const filename = req.params.filename;
-        const filepath = path.join(__dirname,'src', 'images', filename);
-        res.sendFile(filepath);
+        const filepath = path.join(__dirname, 'src', 'images', filename);
+        // Check if the file exists
+        // If it does, send the file
+        // Otherwise, return a 404 Not Found error
+        res.sendFile(filepath, (err) => {
+            if (err) {
+                res.status(404).send({
+                    message: "File not found"
+                });
+            }
+        });
     } catch (error) {
         res.status(500).send({
             message: error.message || "Internal server error"
         });
     }
-  });
+});
 
-app.listen(process.env.PORT,()=>console.log("Server is listening in port " + process.env.PORT))
+const PORT = process.env.PORT || 3000; // Default port is 3000 if not specified in .env file
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+});
