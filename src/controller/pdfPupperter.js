@@ -12,7 +12,9 @@ const outputPath = "./output";
 const generatepdf = async (req, res) => {
     console.log(req.body.id);
     try {
-        const filenames = path.join(__dirname, `${outputPath}/output_${Date.now()}.pdf`);
+        const timestamp = Date.now();
+        const filename = `output_${timestamp}.pdf`;
+        const filepath = path.join(__dirname, outputPath, filename);
         const link = `https://6630fe4c920bff1103caaec2--resumebuildergm.netlify.app/ResumetoPdf/${req.body.id}`;
         
         const browser = await puppeteer.launch({
@@ -34,15 +36,16 @@ const generatepdf = async (req, res) => {
         
         console.log("PDF generation started...");
         
-        await page.pdf({ path: filenames, format: "A4", printBackground: true });
+        await page.pdf({ path: filepath, format: "A4", printBackground: true });
         
-        console.log("PDF generated successfully:", filenames);
+        console.log("PDF generated successfully:", filepath);
         
         await browser.close();
         
+        // Send the generated PDF file as a response
         res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename="resume.pdf"');
-        res.sendFile(filenames);
+        res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+        fs.createReadStream(filepath).pipe(res);
     } catch (err) {
         console.error("Error generating PDF:", err);
         res.status(500).send({ message: err.message });
