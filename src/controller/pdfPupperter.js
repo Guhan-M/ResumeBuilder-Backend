@@ -13,7 +13,7 @@ const generatepdf = async (req, res) => {
     try {
         const sendfilename = `output_${Date.now()}.pdf`
         const filenames = path.join(__dirname, `/output/${sendfilename}`);
-        const link = `http://localhost:5173/ResumetoPdf/${req.body.id}`;
+        const link = `https://66311e1aae2554000809bcbb--resumebuildergm.netlify.app/ResumetoPdf/${req.body.id}`;
       
         if (req.body) {
             const browser = await puppeteer.launch({
