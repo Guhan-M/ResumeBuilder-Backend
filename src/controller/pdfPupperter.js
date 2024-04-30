@@ -46,8 +46,8 @@ const generatepdf = async (req, res) => {
             await page.pdf({ path: filenames, format: "A4", printBackground: true });
             await browser.close();
 
-            res.setHeader('Content-Type', 'application/pdf');
-            res.setHeader('Content-Disposition', 'attachment; filename="resume.pdf"');
+            // res.setHeader('Content-Type', 'application/pdf');
+            // res.setHeader('Content-Disposition', 'attachment; filename="resume.pdf"');
             res.status(201).send({ message: 'File successfully', sendfilename });
            
         } else {
