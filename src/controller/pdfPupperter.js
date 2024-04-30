@@ -54,10 +54,10 @@ const  generatepdf= async (req,res)=>{
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename="resume.pdf"');
         
-        const fileStream = fs.readFileSync(filenames);
+        // const fileStream = fs.readFileSync(filenames);
         // fileStream.pipe(res);
-        res.sendFile(filenames)
-        // res.status(201).send({ message: 'File  successfully', filenames });
+        // res.sendFile(filenames)
+        res.status(201).send({ message: 'File  successfully', filenames });
         }
         else{
           return res.status(404).send({ message: "data  not found" });
