@@ -38,6 +38,28 @@ app.get('/images/:filename', async (req, res) => {
     }
 });
 
+app.get('/pdf/:filename', async (req, res) => {
+    try {
+        const filename = req.params.filename;
+        const filepath = path.join(__dirname, 'src', 'controller','output', filename);
+        // Check if the file exists
+        // If it does, send the file
+        // Otherwise, return a 404 Not Found error
+        res.sendFile(filepath, (err) => {
+            if (err) {
+                res.status(404).send({
+                    message: "File not found"
+                });
+            }
+        });
+    } catch (error) {
+        res.status(500).send({
+            message: error.message || "Internal server error"
+        });
+    }
+});
+
+
 const PORT = process.env.PORT || 3000; // Default port is 3000 if not specified in .env file
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);

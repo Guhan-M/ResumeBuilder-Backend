@@ -11,9 +11,10 @@ const __dirname = dirname(__filename);
 const generatepdf = async (req, res) => {
     console.log(req.body.id);
     try {
-        const filenames = path.join(__dirname, `/output/output_${Date.now()}.pdf`);
-        const link = `https://resume-builder-backend-guq3.onrender.com/generatepdf${req.body.id}`;
-
+        const sendfilename = `output_${Date.now()}.pdf`
+        const filenames = path.join(__dirname, `/output/${sendfilename}`);
+        const link = `http://localhost:5173/ResumetoPdf/${req.body.id}`;
+      
         if (req.body) {
             const browser = await puppeteer.launch({
                 headless: 'new',
@@ -45,10 +46,10 @@ const generatepdf = async (req, res) => {
             await page.pdf({ path: filenames, format: "A4", printBackground: true });
             await browser.close();
 
-            // res.setHeader('Content-Type', 'application/pdf');
-            // res.setHeader('Content-Disposition', 'attachment; filename="resume.pdf"');
-            // res.status(201).send({ message: 'File successfully', filenames });
-            res.download(filenames)
+            res.setHeader('Content-Type', 'application/pdf');
+            res.setHeader('Content-Disposition', 'attachment; filename="resume.pdf"');
+            res.status(201).send({ message: 'File successfully', sendfilename });
+           
         } else {
             return res.status(404).send({ message: "data not found" });
         }
