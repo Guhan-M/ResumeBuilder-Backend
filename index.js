@@ -18,7 +18,7 @@ app.use(Approutes)
 app.get('/images/:filename', async (req, res) => {
     try {
         const filename = req.params.filename;
-        const filepath = path.join(__dirname, 'src', 'images', filename);
+        const filepath = path.join(__dirname,'src', 'images', filename);
         res.sendFile(filepath);
     } catch (error) {
         res.status(500).send({
