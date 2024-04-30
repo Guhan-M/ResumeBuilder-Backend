@@ -15,7 +15,7 @@ const  generatepdf= async (req,res)=>{
     try{
         const  filenames=path.join(__dirname,`/output/output_${Date.now()}.pdf`)
         // `output_${Date.now()}.pdf`
-        const link =`http://localhost:5173/ResumetoPdf/${req.body.id}`
+        const link =`https://resume-builder-backend-guq3.onrender.com/generatepdf${req.body.id}`
         if(req.body){
       // Launch the browser and open a new blank page
     const browser=  await puppeteer.launch({
