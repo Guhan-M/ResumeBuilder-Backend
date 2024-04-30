@@ -15,7 +15,7 @@ const  generatepdf= async (req,res)=>{
     try{
         const  filenames=path.join(__dirname,`/output/output_${Date.now()}.pdf`)
         // `output_${Date.now()}.pdf`
-        const link =`http://localhost:5173/ResumetoPdf/${req.body.id}`
+        const link =` https://6630fe4c920bff1103caaec2--resumebuildergm.netlify.app/ResumetoPdf/${req.body.id}`
         if(req.body){
       // Launch the browser and open a new blank page
     const browser=  await puppeteer.launch({
