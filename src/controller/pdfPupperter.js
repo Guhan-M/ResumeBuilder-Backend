@@ -30,8 +30,7 @@ const generatepdf = async (req, res) => {
                     '--media-cache-size=0',
                     '--disk-cache-size=0'
                 ],
-                protocolTimeout: 120000,
-                executablePath: '/path/to/Chrome' // Add the executablePath option here
+                protocolTimeout: 120000
             });
 
             const page = await browser.newPage();
@@ -41,7 +40,7 @@ const generatepdf = async (req, res) => {
                 const images = document.querySelectorAll('img');
                 return Array.from(images).every((img) => img.complete);
             });
-            
+          
             await page.setViewport({ width: 1080, height: 1024 });
             await page.pdf({ path: filenames, format: "A4", printBackground: true });
             await browser.close();
