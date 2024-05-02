@@ -25,12 +25,30 @@ const generatepdf = async (req, res) => {
                     '--media-cache-size=0',
                     '--disk-cache-size=0'
                 ],
-                executablePath:
-                process.env.NODE_ENV === "production"
-                    ? process.env.PUPPETEER_EXECUTABLE_PATH
-                    : puppeteer.executablePath(),
+                executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || puppeteer.executablePath(),
                 protocolTimeout: 120000
             });
+            // const browser = await puppeteer.launch({
+            //     headless: 'new',
+            //     args: [
+            //         '--disable-gpu',
+            //         '--no-sandbox',
+            //         '--disable-web-security',
+            //         '--disable-dev-profile',
+            //         '--aggressive-cache-discard',
+            //         '--disable-cache',
+            //         '--disable-application-cache',
+            //         '--disable-offline-load-stale-cache',
+            //         '--disable-gpu-shader-disk-cache',
+            //         '--media-cache-size=0',
+            //         '--disk-cache-size=0'
+            //     ],
+            //     executablePath:
+            //     process.env.NODE_ENV === "production"
+            //         ? process.env.PUPPETEER_EXECUTABLE_PATH
+            //         : puppeteer.executablePath(),
+            //     protocolTimeout: 120000
+            // });
             
             const page = await browser.newPage();
             await page.goto(link, { waitUntil: "networkidle2" });
