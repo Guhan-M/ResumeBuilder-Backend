@@ -19,7 +19,7 @@ const generatepdf = async (req, res) => {
 
         const browser = await puppeteer.launch({
             headless: 'new',
-            executablePath: process.env.CHROMIUM_PATH, // Use custom Chromium path from environment variable
+            executablePath: '/path/to/chrome', // Set the correct path to Chromium here
             args: [
                 '--disable-gpu',
                 '--no-sandbox',
@@ -36,31 +36,7 @@ const generatepdf = async (req, res) => {
             protocolTimeout: 120000
         });
 
-        const page = await browser.newPage();
-        page.on('error', err => {
-            console.error('Page error:', err);
-            browser.close();
-            res.status(500).send({ message: 'An error occurred while generating PDF' });
-        });
-
-        page.on('pageerror', err => {
-            console.error('Page error:', err);
-            browser.close();
-            res.status(500).send({ message: 'An error occurred while generating PDF' });
-        });
-
-        await page.goto(link, { waitUntil: "networkidle2" });
-        await page.waitForFunction(() => {
-            const images = document.querySelectorAll('img');
-            return Array.from(images).every((img) => img.complete);
-        });
-      
-        await page.setViewport({ width: 1080, height: 1024 });
-        await page.pdf({ path: filenames, format: "A4", printBackground: true });
-        await browser.close();
-
-        console.log('PDF generated successfully:', sendfilename);
-        res.status(201).send({ message: 'File successfully', sendfilename });
+        // Rest of the code...
            
     } catch (err) {
         console.error('Error:', err);
