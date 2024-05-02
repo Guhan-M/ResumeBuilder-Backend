@@ -18,8 +18,8 @@ const generatepdf = async (req, res) => {
         }
 
         const browser = await puppeteer.launch({
-            headless: 'new',
-            executablePath: '/usr/bin/google-chrome', // Replace with the correct path to Chrome executable
+            headless: true, // Set to false if you want to see the browser UI
+            executablePath: '/usr/bin/google-chrome', // Update this path with the correct one
             args: [
                 '--disable-gpu',
                 '--no-sandbox',
@@ -32,8 +32,7 @@ const generatepdf = async (req, res) => {
                 '--disable-gpu-shader-disk-cache',
                 '--media-cache-size=0',
                 '--disk-cache-size=0'
-            ],
-            protocolTimeout: 120000
+            ]
         });
 
         // Rest of the code...
