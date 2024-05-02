@@ -8,23 +8,12 @@ const generatepdf = async (req, res) => {
           console.log(link)
         if (req.body) {
             const browser = await puppeteer.launch({
-                headless: 'new',
-                executablePath: '/path/to/your/chromium/executable', // Provide the path to Chromium executable
-                args: [
-                    '--disable-gpu',
-                    '--no-sandbox',
-                    '--disable-web-security',
-                    '--disable-dev-profile',
-                    '--aggressive-cache-discard',
-                    '--disable-cache',
-                    '--disable-application-cache',
-                    '--disable-offline-load-stale-cache',
-                    '--disable-gpu-shader-disk-cache',
-                    '--media-cache-size=0',
-                    '--disk-cache-size=0'
-                ],
-                protocolTimeout: 120000
-            });
+                headless: true,
+      executablePath: '/path/to/your/chromium/executable', // Provide the path to Chromium executable
+      protocolTimeout: 120000 // Optional protocol timeout
+    });
+    console.log('Chromium launched successfully');
+
               console.log(await browser.version());
               console.log(browser)
             const page = await browser.newPage();
