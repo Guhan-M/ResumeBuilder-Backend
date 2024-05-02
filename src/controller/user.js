@@ -364,6 +364,7 @@ const uploadimageresume2 = async (req, res) => {
     
       upload(req, res, function (err) {
       if (err instanceof multer.MulterError) {
+           console.error("Multer error:", err);
         return res.status(500).send({ message: 'Multer error occurred' });
       } else if (err) {
         return res.status(500).send({ message: 'Unknown error occurred' });
