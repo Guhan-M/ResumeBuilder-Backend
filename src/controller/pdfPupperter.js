@@ -9,6 +9,7 @@ const generatepdf = async (req, res) => {
         if (req.body) {
             const browser = await puppeteer.launch({
                 headless: 'new',
+                executablePath: '/path/to/your/chromium/executable', // Provide the path to Chromium executable
                 args: [
                     '--disable-gpu',
                     '--no-sandbox',
