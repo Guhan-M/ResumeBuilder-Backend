@@ -19,7 +19,7 @@ const generatepdf = async (req, res) => {
 
         const browser = await puppeteer.launch({
             headless: 'new',
-            executablePath: '/path/to/chrome', // Set the correct path to Chromium here
+            executablePath: '/usr/bin/google-chrome', // Replace with the correct path to Chrome executable
             args: [
                 '--disable-gpu',
                 '--no-sandbox',
@@ -45,7 +45,6 @@ const generatepdf = async (req, res) => {
 }
 
 export default generatepdf;
-
 
 
 
