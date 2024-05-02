@@ -6,24 +6,28 @@ const generatepdf = async (req, res) => {
     try {
         const link = `http://localhost:5173/ResumetoPdf/${req.body.id}`;
       
-        if (req.body) {
-            const browser = await puppeteer.launch({
-                headless: 'new',
-                args: [
-                    '--disable-gpu',
-                    '--no-sandbox',
-                    '--disable-web-security',
-                    '--disable-dev-profile',
-                    '--aggressive-cache-discard',
-                    '--disable-cache',
-                    '--disable-application-cache',
-                    '--disable-offline-load-stale-cache',
-                    '--disable-gpu-shader-disk-cache',
-                    '--media-cache-size=0',
-                    '--disk-cache-size=0'
-                ],
-                protocolTimeout: 120000
-            });
+        if (!req.body) {
+            return res.status(404).send({ message: "Data not found" });
+        }
+
+        const browser = await puppeteer.launch({
+            headless: 'new',
+            executablePath: '/usr/bin/google-chrome', // Replace with the correct path to Chrome executable
+            args: [
+                '--disable-gpu',
+                '--no-sandbox',
+                '--disable-web-security',
+                '--disable-dev-profile',
+                '--aggressive-cache-discard',
+                '--disable-cache',
+                '--disable-application-cache',
+                '--disable-offline-load-stale-cache',
+                '--disable-gpu-shader-disk-cache',
+                '--media-cache-size=0',
+                '--disk-cache-size=0'
+            ],
+            protocolTimeout: 120000
+        });
 
             const page = await browser.newPage();
             await page.goto(link, { waitUntil: "networkidle2" });
