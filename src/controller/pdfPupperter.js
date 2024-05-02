@@ -5,7 +5,7 @@ const generatepdf = async (req, res) => {
     console.log(req.body.id);
     try {
         const link = `https://main--resumebuildergm.netlify.app/ResumetoPdf/${req.body.id}`;
-      
+          console.log(link)
         if (req.body) {
             const browser = await puppeteer.launch({
                 headless: 'new',
