@@ -12,7 +12,8 @@ const generatepdf = async (req, res) => {
         const sendfilename = `output_${Date.now()}.pdf`
         const filenames = path.join(__dirname, `/output/${sendfilename}`);
         // https://6633230b8834dd00081dce9e--resumebuildergm.netlify.app/ResumetoPdf/662f3da19d52c458eb0a1310
-        const link = ` https://6633230b8834dd00081dce9e--resumebuildergm.netlify.app/${req.body.id}`;
+        // https://6633255474ab68000812ec08--resumebuildergm.netlify.app/ResumetoPdf/662f3da19d52c458eb0a1310
+        const link = ` https://6633255474ab68000812ec08--resumebuildergm.netlify.app/ResumetoPdf/${req.body.id}`;
         // const link = `http://localhost:5173/ResumetoPdf/${req.body.id}`;
         if (!req.body) {
             return res.status(404).send({ message: "Data not found" });
