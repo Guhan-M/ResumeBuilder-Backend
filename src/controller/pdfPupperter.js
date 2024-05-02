@@ -27,7 +27,7 @@ const generatepdf = async (req, res) => {
 
             const page = await browser.newPage();
             await page.goto(link, { waitUntil: "networkidle2" });
-            
+            await page.waitForTimeout(2000); // Adjust the delay as needed
             await page.waitForFunction(() => {
                 const images = document.querySelectorAll('img');
                 return Array.from(images).every((img) => img.complete);
