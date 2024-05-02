@@ -4,7 +4,7 @@ import { Buffer } from 'buffer'; // Import buffer module
 const generatepdf = async (req, res) => {
     console.log(req.body.id);
     try {
-        const link = `http://localhost:5173/ResumetoPdf/${req.body.id}`;
+        const link = `https://main--resumebuildergm.netlify.app/ResumetoPdf/${req.body.id}`;
       
         if (req.body) {
             const browser = await puppeteer.launch({
@@ -40,7 +40,7 @@ const generatepdf = async (req, res) => {
 
             // Convert binary buffer to base64 string
             const base64Pdf = pdfBuffer.toString('base64');
-
+            console.log("wait")
             await browser.close();
         
             res.status(201).send({ message: 'File successfully saved to MongoDB',base64Pdf });
