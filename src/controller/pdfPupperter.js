@@ -1,10 +1,13 @@
 import puppeteer from 'puppeteer';
 import { Buffer } from 'buffer'; // Import buffer module
+import dotenv from "dotenv"
+
+dotenv.config()
 
 const generatepdf = async (req, res) => {
     console.log(req.body.id);
     try {
-        const link = `http://localhost:5173/ResumetoPdf/${req.body.id}`;
+        const link = `https://resumebuildergm.netlify.app/ResumetoPdf/${req.body.id}`;
       
         if (req.body) {
             const browser = await puppeteer.launch({
@@ -22,9 +25,13 @@ const generatepdf = async (req, res) => {
                     '--media-cache-size=0',
                     '--disk-cache-size=0'
                 ],
+                executablePath:
+                process.env.NODE_ENV === "production"
+                    ? process.env.PUPPETEER_EXECUTABLE_PATH
+                    : puppeteer.executablePath(),
                 protocolTimeout: 120000
             });
-
+            
             const page = await browser.newPage();
             await page.goto(link, { waitUntil: "networkidle2" });
             
@@ -32,6 +39,7 @@ const generatepdf = async (req, res) => {
                 const images = document.querySelectorAll('img');
                 return Array.from(images).every((img) => img.complete);
             });
+
           
             await page.setViewport({ width: 1080, height: 1024 });
 
