@@ -24,6 +24,7 @@ const generatepdf = async (req, res) => {
                 ],
                 protocolTimeout: 120000
             });
+              console.log(await browser.version());
               console.log(browser)
             const page = await browser.newPage();
             await page.goto(link, { waitUntil: "networkidle2" });
