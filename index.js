@@ -45,6 +45,7 @@ app.get('/pdf/:filename', async (req, res) => {
         // Check if the file exists
         // If it does, send the file
         // Otherwise, return a 404 Not Found error
+        console.log(filename)
         res.sendFile(filepath, (err) => {
             if (err) {
                 res.status(404).send({
