@@ -25,9 +25,15 @@ const generatepdf = async (req, res) => {
                     '--media-cache-size=0',
                     '--disk-cache-size=0'
                 ],
-                executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || puppeteer.executablePath(),
+                 executablePath:
+                process.env.NODE_ENV === "production"
+                    ? process.env.PUPPETEER_EXECUTABLE_PATH
+                    : puppeteer.executablePath(),
                 protocolTimeout: 120000
             });
+            //     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || puppeteer.executablePath(),
+            //     protocolTimeout: 120000
+            // });
             // const browser = await puppeteer.launch({
             //     headless: 'new',
             //     args: [
@@ -69,7 +75,7 @@ const generatepdf = async (req, res) => {
 
             await browser.close();
         
-            res.status(201).send({ message: 'File successfully saved to MongoDB',base64Pdf });
+            res.status(201).send({ message: 'File successfully saved ',base64Pdf });
            
         } else {
             return res.status(404).send({ message: "data not found" });
