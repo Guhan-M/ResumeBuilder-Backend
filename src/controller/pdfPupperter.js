@@ -7,7 +7,7 @@ dotenv.config()
 const generatepdf = async (req, res) => {
     console.log(req.body.id);
     try {
-        const link = `https://6634655833c9ad9d5494a35f--resume-buildergm.netlify.app/ResumetoPdf/${req.body.id}`;
+        const link = `https://main--resume-buildergm.netlify.app/ResumetoPdf/${req.body.id}`;
           console.log(link)
         if (req.body) {
             const browser = await puppeteer.launch({
